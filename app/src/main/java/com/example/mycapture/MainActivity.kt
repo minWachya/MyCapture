@@ -1,20 +1,12 @@
 package com.example.mycapture
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Rect
-import android.net.Uri
+import android.graphics.Canvas
 import android.os.Bundle
-import android.os.Environment
-import android.text.format.DateFormat
-import android.view.PixelCopy
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mycapture.databinding.ActivityMainBinding
-import java.io.File
-import java.io.FileOutputStream
-import java.util.*
 
 private lateinit var binding: ActivityMainBinding
 
@@ -25,25 +17,23 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.btnCapture.setOnClickListener { takeScreenshot() }
+        binding.btnCapture.setOnClickListener {
+            val bitmap = takeScreenshot(view)
+            binding.imgView.setImageBitmap(bitmap)
+        }
     }
 
-    private fun takeScreenshot() {
-        val b: Bitmap = Screenshot.takeScreenshotOfRootView(binding.imgView)
-        binding.imgView.setImageBitmap(b)
+    private fun takeScreenshot(view: View): Bitmap? {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
     }
 
-    companion object Screenshot {
-        private fun takeScreenshot(view: View): Bitmap {
-            view.isDrawingCacheEnabled = true
-            view.buildDrawingCache(true)
-            val b = Bitmap.createBitmap(view.drawingCache)
-            view.isDrawingCacheEnabled = false
-            return b
-        }
-        fun takeScreenshotOfRootView(v: View): Bitmap {
-            return takeScreenshot(v.rootView)
-        }
+    override fun onPointerCaptureChanged(hasCapture: Boolean) {
+        super.onPointerCaptureChanged(hasCapture)
+
+        Toast.makeText(applicationContext, "캡", Toast.LENGTH_SHORT).show()
     }
 
 }
