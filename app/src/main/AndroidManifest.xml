@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mycapture">
 
-    <!--스크린샷을 갤러리에 저장하기 위한 권한-->
+    <!--스크린샷을 갤러리에 저장하기 위한 권한+파일 읽고 쓰기-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MyCapture</string>
 
-    <string name="text_btn">캡쳐하기</string>
+    <string name="text_btn_capture">캡쳐하기</string>
+    <string name="text_btn_create_file">파일 생성하기</string>
     <string name="text1">1</string>
     <string name="text2">2</string>
     <string name="text3">3</string>
