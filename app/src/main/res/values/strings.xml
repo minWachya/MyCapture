@@ -2,15 +2,11 @@
     <string name="app_name">MyCapture</string>
 
     <string name="text_btn_capture">캡쳐하기</string>
+    <string name="text_btn_prev_file">파일 미리보기</string>
     <string name="text_btn_create_file">파일 생성하기</string>
-    <string name="text1">1</string>
-    <string name="text2">2</string>
-    <string name="text3">3</string>
-    <string name="text4">4</string>
-    <string name="text5">5</string>
-    <string name="text6">6</string>
-    <string name="text7">7</string>
-    <string name="text8">8</string>
-    <string name="text9">9</string>
-    <string name="text10">10</string>
+    <string name="doc_title">제목</string>
+    <string name="doc_name1">이름</string>
+    <string name="doc_num2">학번</string>
+    <string name="doc_major3">학과</string>
+
 </resources>

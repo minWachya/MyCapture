@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DocActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnCreateFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_btn_create_file"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/doc_title"
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateFile" />
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/editText">
+            <TextView
+                android:layout_row="0"
+                android:layout_column="0"
+                android:padding="20dp"
+                android:text="@string/doc_name1"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="fill"
+                android:hint="@string/doc_name1"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_row="1"
+                android:layout_column="0"
+                android:padding="20dp"
+                android:text="@string/doc_num2"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/editNum"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_gravity="fill"
+                android:hint="@string/doc_num2"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_row="2"
+                android:layout_column="0"
+                android:padding="20dp"
+                android:text="@string/doc_major3"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/editMajor"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_gravity="fill"
+                android:hint="@string/doc_major3"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </GridLayout>
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
