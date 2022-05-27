@@ -1,12 +1,19 @@
 package com.example.mycapture
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.akexorcist.screenshotdetection.ScreenshotDetectionDelegate
 import com.example.mycapture.databinding.ActivityCaptureBinding
+import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -16,18 +23,25 @@ private lateinit var binding: ActivityCaptureBinding
 private const val TAG = "mmmCaptureActivity"
 
 // 캡쳐하기 화면
-class CaptureActivity : AppCompatActivity() {
+class CaptureActivity : AppCompatActivity(), ScreenshotDetectionDelegate.ScreenshotDetectionListener {
+    // 켑쳐 탐지기
+    private val screenshotDetectionDelegate = ScreenshotDetectionDelegate(this@CaptureActivity, this@CaptureActivity)
+    // 캡쳐 후 저장에 관한 권한 코드
+    companion object { private const val REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION = 3009 }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaptureBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
+        // 권한 확인
+        checkReadExternalStoragePermission()
+
         // <캡쳐하기> 버튼 클릭
         binding.btnCapture.setOnClickListener {
             // 스크린샷 찍기
             val bitmap = takeScreenshot(view)
-            binding.imgView.setImageBitmap(bitmap)
             // 갤러리에 저장하기
             savePhoto(bitmap!!)
         }
@@ -59,6 +73,47 @@ class CaptureActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)   // 비트맵 압축
 
         return folderPath + fileName // 저장한 파일 이름
+    }
+
+    override fun onStart() {
+        super.onStart()
+        screenshotDetectionDelegate.startScreenshotDetection()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        screenshotDetectionDelegate.stopScreenshotDetection()
+    }
+
+    // 화면 캡쳐 시 이벤트
+    override fun onScreenCaptured(path: String) {
+        Toast.makeText(applicationContext, "방금 캡쳐했지!!!", Toast.LENGTH_SHORT).show()
+    }
+    // 화면 캡쳐를 위한 권한이 설정되지 않았을 때
+    override fun onScreenCapturedWithDeniedPermission() {
+        Toast.makeText(applicationContext, "캡쳐를 위해 권한을 설정해주세요.", Toast.LENGTH_SHORT).show()
+    }
+    // 권한 요청에 대한 응답 함수
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION -> {
+                // 권한이 거부되었을 때
+                if (grantResults.getOrNull(0) == PackageManager.PERMISSION_DENIED)
+                    Toast.makeText(this@CaptureActivity,
+                        "Read External Storage 권한이 거부되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+    // 권한 확인 함수
+    private fun checkReadExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this@CaptureActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestReadExternalStoragePermission()
+        }
+    }
+    // 권한 요청 함수
+    private fun requestReadExternalStoragePermission() {
+        ActivityCompat.requestPermissions(this@CaptureActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION)
     }
 
 }
