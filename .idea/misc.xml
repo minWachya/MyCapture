@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Study/Android/MyCapture/app/src/main/res/drawable/custom_toast_background.xml" value="0.1445" />
         <entry key="..\:/Study/Android/MyCapture/app/src/main/res/layout/activity_capture.xml" value="0.25364583333333335" />
         <entry key="..\:/Study/Android/MyCapture/app/src/main/res/layout/activity_doc.xml" value="0.225" />
         <entry key="..\:/Study/Android/MyCapture/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Study/Android/MyCapture/app/src/main/res/layout/custom_toast.xml" value="0.264" />
       </map>
     </option>
   </component>

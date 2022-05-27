@@ -3,15 +3,19 @@ package com.example.mycapture
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.akexorcist.screenshotdetection.ScreenshotDetectionDelegate
+import com.example.mycapture.custom.CustomToast.showCustomToast
 import com.example.mycapture.databinding.ActivityCaptureBinding
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
@@ -87,7 +91,9 @@ class CaptureActivity : AppCompatActivity(), ScreenshotDetectionDelegate.Screens
 
     // 화면 캡쳐 시 이벤트
     override fun onScreenCaptured(path: String) {
-        Toast.makeText(applicationContext, "방금 캡쳐했지!!!", Toast.LENGTH_SHORT).show()
+        // path: /storage/emulated/0/DCIM/Screenshots/Screenshot_20220527-211810_MyCapture.jpg
+        val bitmap = BitmapFactory.decodeFile(path)
+        Toast(applicationContext).showCustomToast(applicationContext, bitmap, "방금 찍은 화면을 공유해보세요!")
     }
     // 화면 캡쳐를 위한 권한이 설정되지 않았을 때
     override fun onScreenCapturedWithDeniedPermission() {

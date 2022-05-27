@@ -15,8 +15,7 @@
     <string name="text5">5</string>
     <string name="text6">6</string>
     <string name="text7">7</string>
-    <string name="text8">8</string>
-    <string name="text9">9</string>
-    <string name="text10">10</string>
+    <string name="custom_toast_text">방금 찍은 화면을 공유해보세요!</string>
+    <string name="custom_toast_btn">공유하기</string>
 
 </resources>
